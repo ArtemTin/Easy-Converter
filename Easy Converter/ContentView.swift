@@ -27,7 +27,7 @@ struct ContentView: View {
                 }
                 HStack {
                     Text("Result in \(currencies2[selectedCurr2].rawValue)")
-                    Text(String((currentAmountOut * 100).rounded() / 100))
+                    Text(String(format: "%.3f", currentAmountOut))
                 }
                 VStack {
                     Button(action: {
