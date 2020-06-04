@@ -20,7 +20,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
         // Create the SwiftUI view that provides the window contents.
-        let contentView = ContentView()
+        let myDict = updateDict()
+        var currencies1 = generateList(exchangeDict: myDict)
+        var currencies2 = generateList(exchangeDict: myDict)
+        currencies1.sort(by: {$0.rawValue < $1.rawValue})
+        currencies2.sort(by: {$0.rawValue < $1.rawValue})
+        let contentView = ContentView(currencies1: currencies1, currencies2: currencies2)
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {

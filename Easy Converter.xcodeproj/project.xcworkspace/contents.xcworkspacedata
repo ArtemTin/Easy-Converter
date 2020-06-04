@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/tinartem/Desktop/Easy Converter/Easy Converter/CircleImage.swift">
+   </FileRef>
+   <FileRef
+      location = "group:../../Swift/CreatingAndCombiningViews/Resources/turtlerock.jpg">
+   </FileRef>
+   <FileRef
       location = "self:Easy Converter.xcodeproj">
    </FileRef>
 </Workspace>
