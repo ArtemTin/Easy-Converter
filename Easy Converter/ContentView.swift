@@ -38,10 +38,12 @@ struct ContentView: View {
                     }) {
                         Text("Swap")
                     }
-                    Picker(selection: $selectedCurr1, label: Text("FROM") .bold()) {
-                        ForEach(0 ..< currencies1.count) {
-                            Text(self.currencies1[$0].rawValue)
-                         }
+                    HStack {
+                        Picker(selection: $selectedCurr1, label: Text("FROM") .bold()) {
+                            ForEach(0 ..< currencies1.count) {
+                                Text(self.currencies1[$0].rawValue)
+                             }
+                        }
                     }
                     Picker(selection: $selectedCurr2, label: Text("TO") .bold()) {
                         ForEach(0 ..< currencies2.count) {
