@@ -6,6 +6,7 @@
 //  Copyright © 2020 Артём Тихоненко. All rights reserved.
 //
 
+
 import SwiftUI
 
 
@@ -18,44 +19,44 @@ struct ContentView: View {
     private var currentAmountOut: Double { (Double(currentAmountIn) ?? 0) * ExchangePair(from_curr: currencies1[selectedCurr1], to_curr: currencies2[selectedCurr2], exchangesDict: exchangeDict).exchangeRate}
     var body: some View {
         VStack {
+            Text("Easy Converter")
+                .font(.largeTitle)
+            HStack {
+                Text("Enter in \(currencies1[selectedCurr1].rawValue)")
+                TextField("", text: $currentAmountIn)
+                    .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
+            }
+            HStack {
+                
+                Text("Result in \(currencies2[selectedCurr2].rawValue)")
+                Text(String(format: "%.2f", currentAmountOut))
+                Spacer()
+            }
             VStack {
-                HStack {
-                    Text("Enter in \(currencies1[selectedCurr1].rawValue)")
-                    TextField("", text: $currentAmountIn)
-                        .padding(.leading)
-                        .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
+                Button(action: {
+                    let tmp = self.selectedCurr1
+                    self.selectedCurr1 = self.selectedCurr2
+                    self.selectedCurr2 = tmp
+                    
+                }) {
+                    Text("Swap")
                 }
-                HStack {
-                    Text("Result in \(currencies2[selectedCurr2].rawValue)")
-                    Text(String(format: "%.3f", currentAmountOut))
-                }
-                VStack {
-                    Button(action: {
-                        let tmp = self.selectedCurr1
-                        self.selectedCurr1 = self.selectedCurr2
-                        self.selectedCurr2 = tmp
-                        
-                    }) {
-                        Text("Swap")
-                    }
-                    HStack {
-                        Picker(selection: $selectedCurr1, label: Text("FROM") .bold()) {
-                            ForEach(0 ..< currencies1.count) {
-                                Text(self.currencies1[$0].rawValue)
-                             }
-                        }
-                    }
-                    Picker(selection: $selectedCurr2, label: Text("TO") .bold()) {
-                        ForEach(0 ..< currencies2.count) {
-                            Text(self.currencies2[$0].rawValue)
-                         }
+                Picker(selection: $selectedCurr1, label: Text("FROM") .bold()) {
+                    ForEach(0 ..< currencies1.count) {
+                        Text(self.currencies1[$0].rawValue)
                     }
                 }
                 
+                Picker(selection: $selectedCurr2, label: Text("TO") .bold()) {
+                    ForEach(0 ..< currencies2.count) {
+                        Text(self.currencies2[$0].rawValue)
+                    }
+                }
             }
         }
     }
 }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
