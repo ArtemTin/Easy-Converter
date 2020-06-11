@@ -37,12 +37,18 @@ struct ContentView: View {
                         .keyboardType(.asciiCapableNumberPad)
                     Text(String(format: "%.2f", currentAmountOut))
                 }
-                
-                Button(action: {
-                    swap(&self.selectedCurr1, &self.selectedCurr2)
-                    
-                }) {
-                    Text("Поменять валюты местами")
+                Section {
+                    Button(action: {
+                        UIApplication.shared.endEditing()
+                    }) {
+                        Text("Скрыть клавиатуру")
+                    }
+                    Button(action: {
+                        swap(&self.selectedCurr1, &self.selectedCurr2)
+                        
+                    }) {
+                        Text("Поменять валюты местами")
+                    }
                 }
                 // USD - 31 RUB - 26 TRY - 30 GBP - 9 EUR - 8
                 Section(header: Text("Популярные обмены")) {
@@ -54,22 +60,10 @@ struct ContentView: View {
                             Text("USD -> RUB")
                         }
                         Button(action: {
-                            self.selectedCurr1 = 26
-                            self.selectedCurr2 = 31
-                        }) {
-                            Text("RUB -> USD")
-                        }
-                        Button(action: {
                             self.selectedCurr1 = 8
                             self.selectedCurr2 = 26
                         }) {
                             Text("EUR -> RUB")
-                        }
-                        Button(action: {
-                            self.selectedCurr1 = 26
-                            self.selectedCurr2 = 8
-                        }) {
-                            Text("RUB -> EUR")
                         }
                         Button(action: {
                             self.selectedCurr1 = 30
@@ -77,6 +71,20 @@ struct ContentView: View {
                         }) {
                             Text("TRY -> RUB")
                         }
+                        Button(action: {
+                            self.selectedCurr1 = 26
+                            self.selectedCurr2 = 31
+                        }) {
+                            Text("RUB -> USD")
+                        }
+                        
+                        Button(action: {
+                            self.selectedCurr1 = 26
+                            self.selectedCurr2 = 8
+                        }) {
+                            Text("RUB -> EUR")
+                        }
+                        
                         Button(action: {
                             self.selectedCurr1 = 26
                             self.selectedCurr2 = 30
@@ -116,6 +124,11 @@ struct ContentView: View {
     }
 }
 
+extension UIApplication {
+    func endEditing() {
+        sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+}
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
