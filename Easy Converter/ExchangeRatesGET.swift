@@ -87,6 +87,7 @@ func updateDict() -> [Currency:Double] {
             }
         }
     }
+    result[.eur] = 1
     return result
 }
 
