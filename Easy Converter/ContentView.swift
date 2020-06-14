@@ -21,28 +21,19 @@ struct ContentView: View {
         NavigationView {
             Form {
                 Section {
-                    Picker(selection: $selectedCurr1, label: Text("Исходная валюта")) {
+                    Picker(selection: $selectedCurr1, label: TextField("Сумма в \(currencies1[selectedCurr1].rawValue)", text: $currentAmountIn, onCommit: {})
+                    .keyboardType(.asciiCapableNumberPad)) {
                         ForEach(0 ..< currencies1.count) {
                             Text(self.currencies1[$0].rawValue)
                         }
                     }
-                    Picker(selection: $selectedCurr2, label: Text("Валюта результата")) {
+                    Picker(selection: $selectedCurr2, label: Text(String(format: "%.g", currentAmountOut))) {
                         ForEach(0 ..< currencies2.count) {
                             Text(self.currencies2[$0].rawValue)
                         }
                     }
                 }
                 Section {
-                    TextField("Сумма в \(currencies1[selectedCurr1].rawValue)", text: $currentAmountIn)
-                        .keyboardType(.asciiCapableNumberPad)
-                    Text(String(format: "%.2f", currentAmountOut))
-                }
-                Section {
-                    Button(action: {
-                        UIApplication.shared.endEditing()
-                    }) {
-                        Text("Скрыть клавиатуру")
-                    }
                     Button(action: {
                         swap(&self.selectedCurr1, &self.selectedCurr2)
                         
