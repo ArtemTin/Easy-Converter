@@ -13,6 +13,7 @@ import SwiftUI
 struct ContentView: View {
     let input_dict: [String:Double]
     let input_list: [String]
+    let updateDate: String
     
     let popularRates: [Int:(String, String)] = [0:("USD", "RUB"), 1:("RUB", "USD"), 2:("EUR", "RUB"), 3:("RUB", "EUR"), 4:("TRY", "RUB"), 5:("GBP", "TRY"), 6:("GBP", "RUB")]
     
@@ -30,7 +31,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             Form {
-                Section {
+                Section(header: Text("Дата обновления курсов - \(updateDate)")) {
                     Picker(selection: $selectedCurr1, label: TextField("Сумма в \(selectedCurr1)", text: $currentAmountIn, onCommit: {})
                         .keyboardType(.asciiCapableNumberPad)) {
                             ForEach(input_list, id: \.self) {
@@ -64,7 +65,7 @@ struct ContentView: View {
                         }
                     }
                 }
-                .navigationBarTitle(Text("Easy Converter"))
+                .navigationBarTitle("Easy Converter")
             }
         }
     }
@@ -79,6 +80,6 @@ extension UIApplication {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(input_dict: ["EUR":1, "RUB": 15, "USD": 1.2], input_list: ["EUR", "RUB", "USD"])
+        ContentView(input_dict: ["EUR":1, "RUB": 15, "USD": 1.2], input_list: ["EUR", "RUB", "USD"], updateDate: "2020-20-20")
     }
 }
