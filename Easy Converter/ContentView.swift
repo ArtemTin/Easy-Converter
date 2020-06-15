@@ -10,27 +10,36 @@
 import SwiftUI
 
 struct DetailedCurrencyView: View {
-    @State var sourceCurr: String
+    @Binding var sourceCurr: String
     let inputDict: [String: Double]
     let inputList: [String]
     
     var body: some View {
         Form {
-            Picker(selection: $sourceCurr, label: Text("Посмотреть курс валюты..."), content: {
+            Section {
+                Text("Посмотреть курс валюты...")
+                Picker(selection: $sourceCurr, label: Text("Посмотреть курс валюты..."), content: {
+                    ForEach(inputList, id: \.self) {
+                        Text($0)
+                    }
+                })
+                    .labelsHidden()
+                    .pickerStyle(WheelPickerStyle())
+            }
+            Section(header: Text("За 100 \(sourceCurr) вам дадут...")) {
                 ForEach(inputList, id: \.self) {
-                    Text($0)
-                }
-            })
-            ForEach(inputList, id: \.self) {
-                nowCurr in
-                HStack {
-                    Text(nowCurr)
-                    Spacer()
-                    Text(String(format: "%.2f", (self.inputDict[self.sourceCurr] ?? 0) / (self.inputDict[nowCurr] ?? 0)))
+                    nowCurr in
+                    HStack {
+                        Button("\(nowCurr)") {
+                            self.sourceCurr = nowCurr
+                        }
+                        Spacer()
+                        Text(String(format: "%.2f", 100 * (self.inputDict[nowCurr] ?? 0) / (self.inputDict[self.sourceCurr] ?? 0)))
+                    }
                 }
             }
         }
-    .navigationBarTitle(sourceCurr)
+        .navigationBarTitle("Курс \(sourceCurr)")
     }
 }
 
@@ -75,7 +84,9 @@ struct ContentView: View {
                     }) {
                         Text("Поменять валюты местами")
                     }
-                    NavigationLink(destination: DetailedCurrencyView(sourceCurr: selectedCurr1, inputDict: input_dict, inputList: input_list)) {
+                }
+                Section {
+                    NavigationLink(destination: DetailedCurrencyView(sourceCurr: $selectedCurr1, inputDict: input_dict, inputList: input_list)) {
                         HStack {
                             Text("Посмотреть курс...")
                             Spacer()
