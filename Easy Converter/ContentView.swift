@@ -9,6 +9,30 @@
 
 import SwiftUI
 
+struct DetailedCurrencyView: View {
+    @State var sourceCurr: String
+    let inputDict: [String: Double]
+    let inputList: [String]
+    
+    var body: some View {
+        Form {
+            Picker(selection: $sourceCurr, label: Text("Посмотреть курс валюты..."), content: {
+                ForEach(inputList, id: \.self) {
+                    Text($0)
+                }
+            })
+            ForEach(inputList, id: \.self) {
+                nowCurr in
+                HStack {
+                    Text(nowCurr)
+                    Spacer()
+                    Text(String(format: "%.2f", (self.inputDict[self.sourceCurr] ?? 0) / (self.inputDict[nowCurr] ?? 0)))
+                }
+            }
+        }
+    .navigationBarTitle(sourceCurr)
+    }
+}
 
 struct ContentView: View {
     let input_dict: [String:Double]
@@ -50,6 +74,13 @@ struct ContentView: View {
                         
                     }) {
                         Text("Поменять валюты местами")
+                    }
+                    NavigationLink(destination: DetailedCurrencyView(sourceCurr: selectedCurr1, inputDict: input_dict, inputList: input_list)) {
+                        HStack {
+                            Text("Посмотреть курс...")
+                            Spacer()
+                            Text("\(selectedCurr1)")
+                        }
                     }
                 }
                 // USD - 31 RUB - 26 TRY - 30 GBP - 9 EUR - 8
