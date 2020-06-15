@@ -8,27 +8,6 @@
 
 import Foundation
 
-/*
-struct StringPair: Hashable {
-    static func == (lhs: StringPair, rhs: StringPair) -> Bool {
-        return lhs.from_curr == rhs.from_curr && lhs.to_curr == rhs.to_curr
-    }
-    
-    var from_curr: String
-    var to_curr: String
-    
-    init(_ fr: String, _ to: String) {
-        self.from_curr = fr
-        self.to_curr = to
-    }
-    
-    init(_ input: (String, String)) {
-        self.from_curr = input.0
-        self.to_curr = input.1
-    }
-}
-*/
-
 func updateRates() -> ([String:Double], [String], String) {
     var res_dict: [String:Double] = [:]
     var res_list: [String] = []
