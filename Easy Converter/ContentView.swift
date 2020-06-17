@@ -71,6 +71,8 @@ struct ContentView: View {
                                 Text($0)
                             }
                     }
+                }
+                Section(header: Text("Курс - \((input_dict[selectedCurr2] ?? 0) / (input_dict[selectedCurr1] ?? 0))")) {
                     Picker(selection: $selectedCurr2, label: Text(String(format: "%.2f", currentAmountOut))) {
                         ForEach(input_list, id: \.self) {
                             Text($0)
